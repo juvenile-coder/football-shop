@@ -32,4 +32,4 @@ Client mengirim request ke server, lalu urls.py memetakan request ke fungsi yang
 
 Alasan Django jadi framework awal pembelajaran
 
-    Menurut saya, alasannya cukup sederhana. Framework Django memakai bahasa Python yang sintaksnya mudah dibaca. Selain itu, Django sudah cukup lengkap dengan adanya Object Relational Mapping (ORM), template engine, dan admin panel. Django juga berfokus pada pola arsitektur MVT (Model View Template) sehingga memudahkan pengguna untuk belajar arsitektur website.
+Menurut saya, alasannya cukup sederhana. Framework Django memakai bahasa Python yang sintaksnya mudah dibaca. Selain itu, Django sudah cukup lengkap dengan adanya Object Relational Mapping (ORM), template engine, dan admin panel. Django juga berfokus pada pola arsitektur MVT (Model View Template) sehingga memudahkan pengguna untuk belajar arsitektur website.
