@@ -3,14 +3,15 @@ from django.db import models
 # Create your models here.
 class Product(models.Model):
     CATEGORY_CHOICES = [
-        ('tshirt', 'T-Shirt'),
+        ('jersey', 'Jersey'),
         ('jacket', 'Jacket'),
-        ('shorts', 'Shorts')
+        ('shorts', 'Shorts'),
         ('shoes', 'Shoes'),
         ('accessories', 'Accessories'),
+        ('socks', 'Socks'),
     ]
 
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.TextField()
     thumbnail = models.URLField(blank=True, null=True)
@@ -19,4 +20,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
