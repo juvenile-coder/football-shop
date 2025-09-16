@@ -17,7 +17,6 @@
 <p>Belum ada data produk pada Moovr Sportswear.</p>
 {% else %}
 
-
 {% for product in product_list %}
 <div>
   <h2><a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
