@@ -73,3 +73,68 @@ Link screenshot postman: https://drive.google.com/drive/folders/1uq8GAHIe9jSARbp
 
 Tugas 4
 
+Django AuthenticationForm beserta kelebihan dan kekurangannya
+
+AuthenticationForm adalah Form bawaan di django.contrib.auth.forms untuk menangani proses login . Form ini menyediakan validasi yang akan memanggil authenticate(), pesan error standar, termasuk pengecekan akun inactive dan pola yang aman untuk login.
+
+Kelebihan
+- Siap pakai, khususnya dengan fitur validasi input, pesan error, integrasi langsung dengan authenticate() dan sistem auth Django.
+- Mendukung penerimaan request di konstruktor yang akan sangat berguna bila backend butuh request.
+- Mudah diganti/subclass jika perlu custom checks.
+
+Kekurangan
+- Defaultnya mengasumsikan ada field username; untuk custom user model yang menggunakan email sebagai identifier perlu perubahan/subclassing.
+- Tidak menyediakan fitur "remember me" / pengaturan expiry session otomatis.
+- Bukan solusi siap pakai untuk API.
+
+Perbedaan Autentikasi dan Otorisasi berserta penerapannya di Django
+
+Autentikasi (Authentication): memastikan identitas pengguna umunya melalui proses login yang melibatkan username/password.
+
+Otorisasi (Authorization): menentukan hal yang boleh dilakukan pengguna  seperti permissions, akses resource, dsb.
+
+Implementasi oleh Django
+
+Authentication: fungsi authenticate() + login() yang berguna untuk memasukkan user ke session. request.user menjadi objek User atau dalam kasus anonim, maka AnonymousUser. Django menyediakan views/forms helpers dan backends untuk kustomisasi. 
+
+Authorization: Django menyediakan model permission seperti add/change/delete, user.has_perm('app.codename'), @permission_required, dan Group untuk mengelompokkan permission. Selain itu ada decorator @login_required / mixin LoginRequiredMixin untuk membatasi view hanya untuk pengguna terautentikasi.
+
+Kelebihan dan kekurangan Session dan Cookies
+
+Cookies
+- Mudah diproses, dimana browser menyimpan key/value, tersedia di request berikutnya.
+- Kapasitas terbatas, mudah diubah oleh client, dan bisa terekspos ke XSS jika tidak HttpOnly.
+- Perlu menambahkan mekanisme signing/encryption jika menyimpan data sensitif.
+
+Sessions
+- Data session disimpan server-side (DB/cache/file). Client hanya menerima session id.
+- Kapasitas lebih besar & dapat menyimpan tipe data Python yang lebih kompleks.
+- Butuh penyimpanan server-side (DB/cache).
+- Jika menggunakan cookie-based sessions, data ditandatangani tetapi tidak terenkripsi yang artinya bisa dilihat oleh client walau tidak bisa dipalsukan tanpa SECRET_KEY.
+
+Resiko keamanan cookies dan penaggulangannya
+
+Risiko utama
+- Adanya serangan XSS yang berupa script yang tidak diinginkan di halaman website, XSS dapat membaca cookie kecuali cookie diberi HttpOnly.
+- Peretasan melalui teknik Man-in-the-middle (MITM), dimana cookie tanpa Secure dapat dikirim lewat HTTP yang tidak terenkripsi.
+- Fitur CSRF yang mana cookies dikirim otomatis oleh browser sehingga rentan terhadap CSRF jika tidak ada proteksi.
+- Rawan terhadap pengintaian client karena cookie ditaruh di client sehingga nilainya dapat dilihat kecuali terenkripsi.
+
+Praktik / mitigasi (Django + web)
+
+Django telah menyediakan berbagai fitur keamanan seperti:
+- HttpOnly untuk cookie session dalam mencegah akses JS
+- Secure yang hanya akan mengirim lewat HTTPS
+- SameSite (Lax/Strict) untuk mengurangi CSRF via cross-site requests.
+- CSRF middleware yang bertujuan untuk  mengaktifkan CSRF protection by default untuk POST forms.
+
+Step by step implementation:
+- Membuat template yang dibutuhkan seperti file template login dan register
+- Mengimport semua library yang dibutuhkan untuk pengembangan
+- Membuat form login, register untuk menampung input user
+- Membuat fungsi login, register, logout untuk menjalankan proses yang bersangkutan
+- Melakukan otorisasi dengan menambahkan dekorator @login_required pada fungsi yang menampilkan halaman utama dan produk
+- Menambahkan fungsi cookies pada session pengguna
+- Menambahkan path yang bersangkutan dari fungsi di views.py ke urls.py pada direktori aplikasi
+- Hubungkan model untuk menanggapi perubahan model yang terjadi selama pengembangan
+- Ubah tampilan utama website untuk mengakomodasi fungsi baru yang diterapkan
