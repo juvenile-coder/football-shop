@@ -1,8 +1,8 @@
-Tugas 2
+## Tugas 2
 
-Link deployment: https://jefferson-tirza-footballshop.pbp.cs.ui.ac.id/
+**Link deployment:** https://jefferson-tirza-footballshop.pbp.cs.ui.ac.id/
 
-Step by step pengerjaan tugas:
+**Step by step pengerjaan tugas:**
 - Buatlah sebuah direktori baru untuk membuat proyek Django baru, setelah itu, inisialisasi virtual environment dan aktifkan enviroment tersebut.
 - Buatlah sebuah proyek baru dengan perintah 'django-admin startproject [nama proyek]'
 - Lalu masuk ke direktori proyek dan buatlah aplikasi main dengan perintah 'python manage.py startapp'
@@ -15,44 +15,44 @@ Step by step pengerjaan tugas:
 - Lanjutkan konfigurasi dengan memodifikasi berkas urls.py pada berkas proyek dan tambahkan include pada import serta masukkan url aplikasi kepada list urlpatterns.
 - Lakukan deployment di pws, dengan membuat proyek baru dan menghubungkan proyek dengan server.
 
-Peran settings.py dalam proyek Django
+**Peran settings.py dalam proyek Django**
 - Menyimpan semua konfigurasi global proyek.
 - Mengatur koneksi database.
 - Menentukan daftar aplikasi yang aktif melalui INSTALLED_APPS.
 - Mengatur lokasi template, static files, dan media files.
 - Menyimpan kunci keamanan dan pengaturan debug.
 
-Cara kerja migrasi database di Django
+**Cara kerja migrasi database di Django**
 - Saat kita membuat atau mengubah model, Django perlu menyinkronkan ke database.
 - Perintah 'makemigrations' menghasilkan file migrasi yang berisi instruksi perubahan tabel sedangkan perintah 'migrate' mengeksekusi file migrasi ke database sehingga struktur tabel sesuai dengan model.
 
-Bagan request client: https://www.canva.com/design/DAGyaFcGcbo/OJVS_t3e_4zRUQecP4eZDg/edit?utm_content=DAGyaFcGcbo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+**Bagan request client:** https://www.canva.com/design/DAGyaFcGcbo/OJVS_t3e_4zRUQecP4eZDg/edit?utm_content=DAGyaFcGcbo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
-Penjelasan
+**Penjelasan Bagan**
 
 Client mengirim request ke server, lalu urls.py memetakan request ke fungsi yang sesuai di views.py. Nantinya, views.py akan menjalankan perintah, jika perlu mengambil atau menyimpan data maka memanggil models.py. Disini models.py berhubungan dengan database. Setelah data diproses, views.py mengirimkannya ke template HTML. Template HTML akan dirender menjadi response. Response dikirim kembali ke client.
 
-Alasan Django jadi framework awal pembelajaran
+**Alasan Django jadi framework awal pembelajaran**
 
 Menurut saya, alasannya cukup sederhana. Framework Django memakai bahasa Python yang sintaksnya mudah dibaca. Selain itu, Django sudah cukup lengkap dengan adanya Object Relational Mapping (ORM), template engine, dan admin panel. Django juga berfokus pada pola arsitektur MVT (Model View Template) sehingga memudahkan pengguna untuk belajar arsitektur website.
 
-Tugas 3
+## Tugas 3
 
-Peran data delivery dalam implementasi sebuah platform
+**Peran data delivery dalam implementasi sebuah platform**
 
 Konsep aplikasi modern umumnya terpisah antara front-end dan back-end. Selain itu ada pihak ketiga yang turut melengkapi untuk fungsi integrasi, dsb. Data delivery memungkinkan aplikasi untuk melakukan pertukaran data antar-komponen. Hal ini juga mempermudah penggunaan kembali data oleh berbagai client. Diluar hal itu, adanya data delivery memungkinkan aplikasi untuk mengontrol format, versi, dan keamanan akses.Kemudahan lainnya yang diberikan adalah memudahkan automasi, testing, dan integrasi layanan eksternal.
 
-Preferensi metode data delivery dan popularitas JSON
+**Preferensi metode data delivery dan popularitas JSON**
 
 Bagi saya pribadi JSON sedikit lebih unggul dengan readability yang lebih baik dan kecepatannya dalam parsing diberbagai platform. Meski demikian, XML tetap memiliki kelebihannya tersendiri. XML bagus untuk dokumen yang dipenuhi oleh markup, namespace, atribut, atau validasi ketat. Tentu ini cocok untuk B2B system lama.
 
 Adapun popularitas JSON di web API modern didasari oleh beberapa alasan, seperti representasi objek yang natural untuk JavaScript, payload yang lebih kecil, sehingga dapat mendongkrak performa yang lebih optimal. Diluar hal tersebut, JSON memiliki parsing built-in di browser modern. Dari segi keramahan terhadap pemula, JSON jauh lebih mudah untuk di pelajari karena tidak memerlukan namespace atau XPath
 
-Pentingnya fungsi is_valid() pada Django
+**Pentingnya fungsi `is_valid()` pada Django**
 
-object.is_valid() penting dalam proses pengembangan aplikasi di Django karena beberapa alasan yakni, memeriksa apakah bound dan semua field memenuhi validasi field-level. Selain itu, fungsi ini juga menjalankan clean_\<field\>() dan clean() pada objek. Fungsi ini juga mengisi object.cleaned_data jika valid, atau form.errors jika tidak. Dalam proses pengembangan, kita membutuhkan is_valid() sebelum menyimpan untuk validasi agar data konsisten dan aman untuk diproses serta mencegah error di DB dan menjaga integritas data.
+`object.is_valid()` penting dalam proses pengembangan aplikasi di Django karena beberapa alasan yakni, memeriksa apakah bound dan semua field memenuhi validasi field-level. Selain itu, fungsi ini juga menjalankan `clean_\<field>()` dan `clean()` pada objek. Fungsi ini juga mengisi object.cleaned_data jika valid, atau form.errors jika tidak. Dalam proses pengembangan, kita membutuhkan `is_valid()` sebelum menyimpan untuk validasi agar data konsisten dan aman untuk diproses serta mencegah error di DB dan menjaga integritas data.
 
-Peran csrf_token pada pembuatan aplikasi Django
+**Peran csrf_token pada pembuatan aplikasi Django**
 
 CSRF (Cross-Site Request Forgery) adalash serangan dimana penyerang membuat user yang sudah login mengirim request yang tidak diinginkan ke aplikasi target karena browser mengirim cookie sesi secara otomatis. csrf_token  adalah sebuah token unik pada form yang memastikan request POST berasal dari halaman yang dihasilkan server. Nantinya server akan memeriksa token pada request dan menolak request jika tidak cocok.
 
@@ -60,7 +60,7 @@ Jika kita tidak menambahkan csrf_token, ada beberapa risiko yang harus dihadapi 
 
 Contoh eksploitasi sederhana penetrasi yang dilakukan penyerang adalah membuat halaman tersembunyi yang otomatis mengirim permintaan POST untuk menghapus akun kita saat kita sedang login di aplikasi tersebut.
 
-Step by step implementasi Data Delivery
+**Step by step implementasi Data Delivery**
 - Membuat direktori baru pada direktori utama proyek untuk membuat berkas berupa template sadar untuk kerangka web
 - Menambahkan direktori yang dibuat kedalam settings.py agar terdeteksi oleh aplikasi
 - Membuat berkas baru untuk struktur forms yang berfungsi menerima object baru
@@ -69,58 +69,58 @@ Step by step implementasi Data Delivery
 - Menambahkan urlpatterns baru pada urls.py agar dapat mengakomodasi perubahan yang dilakukan
 - Tambahkan fungsi CRSF pada settings.py proyek
 
-Link screenshot postman: https://drive.google.com/drive/folders/1uq8GAHIe9jSARbpZ5TNCCe8-r8HI-YB9?usp=sharing
+**Link screenshot postman:** https://drive.google.com/drive/folders/1uq8GAHIe9jSARbpZ5TNCCe8-r8HI-YB9?usp=sharing
 
-Tugas 4
+## Tugas 4
 
-Django AuthenticationForm beserta kelebihan dan kekurangannya
+**Django AuthenticationForm beserta kelebihan dan kekurangannya**
 
-AuthenticationForm adalah Form bawaan di django.contrib.auth.forms untuk menangani proses login . Form ini menyediakan validasi yang akan memanggil authenticate(), pesan error standar, termasuk pengecekan akun inactive dan pola yang aman untuk login.
+AuthenticationForm adalah Form bawaan di django.contrib.auth.forms untuk menangani proses login . Form ini menyediakan validasi yang akan memanggil `authenticate()`, pesan error standar, termasuk pengecekan akun inactive dan pola yang aman untuk login.
 
-Kelebihan
-- Siap pakai, khususnya dengan fitur validasi input, pesan error, integrasi langsung dengan authenticate() dan sistem auth Django.
+**Kelebihan**
+- Siap pakai, khususnya dengan fitur validasi input, pesan error, integrasi langsung dengan `authenticate()` dan sistem auth Django.
 - Mendukung penerimaan request di konstruktor yang akan sangat berguna bila backend butuh request.
 - Mudah diganti/subclass jika perlu custom checks.
 
-Kekurangan
+**Kekurangan**
 - Defaultnya mengasumsikan ada field username; untuk custom user model yang menggunakan email sebagai identifier perlu perubahan/subclassing.
 - Tidak menyediakan fitur "remember me" / pengaturan expiry session otomatis.
 - Bukan solusi siap pakai untuk API.
 
-Perbedaan Autentikasi dan Otorisasi berserta penerapannya di Django
+**Perbedaan Autentikasi dan Otorisasi berserta penerapannya di Django**
 
-Autentikasi (Authentication): memastikan identitas pengguna umunya melalui proses login yang melibatkan username/password.
+**Autentikasi (Authentication):** memastikan identitas pengguna umunya melalui proses login yang melibatkan username/password.
 
-Otorisasi (Authorization): menentukan hal yang boleh dilakukan pengguna  seperti permissions, akses resource, dsb.
+**Otorisasi (Authorization): menentukan hal yang boleh dilakukan pengguna  seperti permissions, akses resource, dsb.**
 
-Implementasi oleh Django
+**Implementasi oleh Django**
 
-Authentication: fungsi authenticate() + login() yang berguna untuk memasukkan user ke session. request.user menjadi objek User atau dalam kasus anonim, maka AnonymousUser. Django menyediakan views/forms helpers dan backends untuk kustomisasi. 
+**Authentication:** fungsi `authenticate()` + `login()` yang berguna untuk memasukkan user ke session. request.user menjadi objek User atau dalam kasus anonim, maka AnonymousUser. Django menyediakan views/forms helpers dan backends untuk kustomisasi. 
 
-Authorization: Django menyediakan model permission seperti add/change/delete, user.has_perm('app.codename'), @permission_required, dan Group untuk mengelompokkan permission. Selain itu ada decorator @login_required / mixin LoginRequiredMixin untuk membatasi view hanya untuk pengguna terautentikasi.
+**Authorization:** Django menyediakan model permission seperti add/change/delete, user.has_perm('app.codename'), @permission_required, dan Group untuk mengelompokkan permission. Selain itu ada decorator @login_required / mixin LoginRequiredMixin untuk membatasi view hanya untuk pengguna terautentikasi.
 
-Kelebihan dan kekurangan Session dan Cookies
+**Kelebihan dan kekurangan Session dan Cookies**
 
-Cookies
+**Cookies**
 - Mudah diproses, dimana browser menyimpan key/value, tersedia di request berikutnya.
 - Kapasitas terbatas, mudah diubah oleh client, dan bisa terekspos ke XSS jika tidak HttpOnly.
 - Perlu menambahkan mekanisme signing/encryption jika menyimpan data sensitif.
 
-Sessions
+**Sessions**
 - Data session disimpan server-side (DB/cache/file). Client hanya menerima session id.
 - Kapasitas lebih besar & dapat menyimpan tipe data Python yang lebih kompleks.
 - Butuh penyimpanan server-side (DB/cache).
 - Jika menggunakan cookie-based sessions, data ditandatangani tetapi tidak terenkripsi yang artinya bisa dilihat oleh client walau tidak bisa dipalsukan tanpa SECRET_KEY.
 
-Resiko keamanan cookies dan penaggulangannya
+**Resiko keamanan cookies dan penaggulangannya**
 
-Risiko utama
+**Risiko utama**
 - Adanya serangan XSS yang berupa script yang tidak diinginkan di halaman website, XSS dapat membaca cookie kecuali cookie diberi HttpOnly.
 - Peretasan melalui teknik Man-in-the-middle (MITM), dimana cookie tanpa Secure dapat dikirim lewat HTTP yang tidak terenkripsi.
 - Fitur CSRF yang mana cookies dikirim otomatis oleh browser sehingga rentan terhadap CSRF jika tidak ada proteksi.
 - Rawan terhadap pengintaian client karena cookie ditaruh di client sehingga nilainya dapat dilihat kecuali terenkripsi.
 
-Praktik / mitigasi (Django + web)
+**Praktik / mitigasi (Django + web)**
 
 Django telah menyediakan berbagai fitur keamanan seperti:
 - HttpOnly untuk cookie session dalam mencegah akses JS
@@ -128,7 +128,7 @@ Django telah menyediakan berbagai fitur keamanan seperti:
 - SameSite (Lax/Strict) untuk mengurangi CSRF via cross-site requests.
 - CSRF middleware yang bertujuan untuk  mengaktifkan CSRF protection by default untuk POST forms.
 
-Step by step implementation:
+**Step by step implementation:**
 - Membuat template yang dibutuhkan seperti file template login dan register
 - Mengimport semua library yang dibutuhkan untuk pengembangan
 - Membuat form login, register untuk menampung input user
@@ -138,3 +138,71 @@ Step by step implementation:
 - Menambahkan path yang bersangkutan dari fungsi di views.py ke urls.py pada direktori aplikasi
 - Hubungkan model untuk menanggapi perubahan model yang terjadi selama pengembangan
 - Ubah tampilan utama website untuk mengakomodasi fungsi baru yang diterapkan
+
+## Tugas 5
+
+**Implementasi Fungsi Hapus dan Edit Product**
+
+Pada pengembangan aplikasi web Django, implementasi fungsi hapus dan edit product dilakukan dengan membuat view functions khusus. Untuk edit product, dibuat fungsi `edit_product()` yang menerima parameter ID product, melakukan validasi kepemilikan product menggunakan `get_object_or_404()` dengan filter `user=request.user`, kemudian memproses form edit menggunakan `ProductForm`. Untuk hapus product, fungsi `delete_product()` dibuat dengan mekanisme serupa namun menggunakan method `DELETE` dan konfirmasi penghapusan. Kedua fungsi dilindungi dengan decorator `@login_required` untuk keamanan dan menggunakan Django messages framework untuk memberikan feedback kepada user.
+
+**Urutan Prioritas CSS Selector**
+
+Urutan prioritas CSS selector ditentukan oleh spesifisitas dengan urutan sebagai berikut:
+1. **Inline styles** (style attribute dalam HTML)
+2. **ID selectors** (#header) 
+3. **Class selectors** (.button), attribute selectors ([type="text"]), dan pseudo-classes (:hover)
+4. **Element selectors** (div, p) dan pseudo-elements (::before)
+
+Ketika terjadi konflik, selector dengan prioritas lebih tinggi akan mengambil alih. Jika prioritas sama, CSS yang dideklarasikan terakhir dalam stylesheet yang akan diterapkan.
+
+**Pentingnya Responsive Design**
+
+Responsive design menjadi konsep krusial karena:
+- **Multi-device usage**: Pengguna mengakses web dari berbagai perangkat dengan ukuran layar berbeda
+- **User experience**: Memastikan pengalaman konsisten dan optimal di semua device
+- **SEO benefits**: Google memprioritaskan situs yang mobile-friendly
+- **Maintenance efficiency**: Satu codebase untuk semua device
+
+**Contoh yang menerapkan**: Amazon, Netflix, Spotify - tampilan menyesuaikan sempurna dari desktop ke mobile
+**Contoh belum menerapkan**: Website pemerintah lama, aplikasi web legacy
+
+**Perbedaan Margin, Border, dan Padding**
+
+Ketiga properti CSS ini mengatur spacing elemen dengan cara berbeda:
+- **Padding**: Ruang antara konten elemen dan border-nya (dalam border)
+- **Border**: Garis pembatas antara padding dan margin
+- **Margin**: Ruang di luar border, memisahkan elemen dari elemen lain
+
+**Implementasi**:
+```css
+.element {
+    padding: 20px;    /* Ruang dalam */
+    border: 2px solid #000; /* Garis batas */
+    margin: 10px;     /* Ruang luar */
+}
+```
+
+**Konsep Flexbox dan Grid Layout**
+
+**Flexbox**:
+- Layout satu dimensi (horizontal atau vertical)
+- Ideal untuk komponen kecil seperti navigation bars, card layouts
+- Mengatur item dalam container fleksibel dengan properti seperti `flex-direction`, `justify-content`, `align-items`
+
+**Grid Layout**:
+- Layout dua dimensi (baris dan kolom sekaligus)
+- Cocok untuk layout halaman kompleks dan gallery
+- Menggunakan `grid-template-columns`, `grid-template-rows` untuk mendefinisikan struktur
+
+**Kegunaan**: Flexbox untuk alignment dan distribusi item dalam satu axis, Grid untuk layout kompleks dengan kontrol precise pada kedua dimensions.
+
+**Step by step implementation**
+- Tambahkan framework styling seperti Tailwind/CSS kedalam aplikasi
+- Buat fitur edit news dan delete news pada views.py tambahkan fungsi pada urls.py dan tampilkan di web
+- Tambahkan navigation bar dengan membuat berkas html untuk navigation bar di folder templates pada direktori utama
+- Tambahkan navbar pada kode template main.html di folder template pada direktori aplikasi
+- Buat static files dengan menambahkan middleware whitenoise
+- Konfigurasi settings.py untuk mengatur STATIC_ROOT, STATICFILES_DIRS, dan STATIC_URL
+- Tambahkan styling dan script tailwind ke berkas base.html pada folder template di direktori utama
+- Tambahkan styling pada global.css sebagai styling default
+- Lakukan styling pada setiap fitur yang diimplementasikan

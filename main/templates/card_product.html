@@ -1,0 +1,76 @@
+{% load static %}
+{% load humanize %}
+
+<article class="bg-white rounded-xl border border-gray-200 shadow-md 
+    hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden group">
+
+  <!-- Image / Thumbnail -->
+  <div class="relative w-full h-52 bg-gray-100">
+    {% if product.thumbnail %}
+      <img src="{{ product.thumbnail }}" alt="{{ product.name }}"
+           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+    {% else %}
+      <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+        No Image
+      </div>
+    {% endif %}
+
+    <!-- Category Badge (top-left) -->
+    <div class="absolute top-3 left-3 flex flex-col gap-2">
+      <span class="px-3 py-1 rounded-md text-xs font-semibold bg-green-600 text-white shadow text-center">
+        {{ product.get_category_display }}
+      </span>
+
+      {% if product.is_featured %}
+      <span class="px-3 py-1 rounded-md text-xs font-semibold bg-yellow-400 text-yellow-900 shadow flex items-center justify-center gap-1 text-center">
+        ⭐ Featured
+      </span>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 flex flex-col">
+    <!-- Product Name -->
+    <h3 class="text-lg font-semibold text-gray-900 mb-2 truncate">
+      <a href="{% url 'main:show_product' product.id %}" 
+         class="hover:text-green-600 transition-colors duration-300">
+        {{ product.name }}
+      </a>
+    </h3>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <p class="text-xl font-bold text-green-700">
+        Rp {{ product.price|intcomma }}
+      </p>
+    </div>
+
+    <!-- Short Description (line-clamp smooth) -->
+    <p class="text-gray-500 text-sm mb-5 line-clamp-2 group-hover:line-clamp-4 transition-all duration-500 ease-in-out">
+      {{ product.description|truncatewords:30 }}
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="mt-auto flex items-center justify-between gap-3">
+      <a href="{% url 'main:show_product' product.id %}"
+         class="flex-1 bg-green-600 text-white text-sm font-medium px-4 py-2 rounded-md 
+                text-center hover:bg-green-700 hover:shadow-md transition-all duration-300">
+        View
+      </a>
+
+      {% if user.is_authenticated and product.user == user %}
+        <a href="{% url 'main:edit_product' product.pk %}"
+           class="px-3 py-2 text-sm rounded-md border border-gray-300 text-gray-600 
+                  hover:bg-gray-100 hover:shadow-sm transition-all duration-300">
+          Edit
+        </a>
+        <a href="{% url 'main:delete_product' product.pk %}"
+           class="px-3 py-2 text-sm rounded-md border border-red-300 text-red-600 
+                  hover:bg-red-50 hover:shadow-sm transition-all duration-300">
+          Delete
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>
