@@ -1,0 +1,33 @@
+{% load static %}
+<div 
+  id="toast-component"
+  class="fixed bottom-8 right-8 flex items-start gap-3 bg-white border border-gray-200 shadow-2xl rounded-2xl px-5 py-4 w-80 max-w-sm 
+         opacity-0 scale-90 translate-x-12 transition-all duration-500 ease-out z-50"
+>
+  <!-- Icon Circle -->
+  <div id="toast-icon-wrapper"
+       class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-green-100 text-green-600 text-xl shadow-sm"
+  >
+    <span id="toast-icon">🫧</span>
+  </div>
+
+  <!-- Text Content -->
+  <div class="flex-1 overflow-hidden">
+    <h3 id="toast-title" class="font-semibold text-gray-900 text-sm mb-1">
+      Notification Title
+    </h3>
+    <p id="toast-message" class="text-gray-600 text-sm leading-snug line-clamp-3">
+      This is a new toast message design with a smoother pop-up animation.
+    </p>
+  </div>
+
+  <!-- Close Button -->
+  <button 
+    id="toast-close-btn"
+    class="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+  >
+    ✕
+  </button>
+</div>
+
+<script src="{% static 'js/toast.js' %}"></script>

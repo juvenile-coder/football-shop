@@ -15,26 +15,6 @@
           Home
         </a>
 
-        <!-- Category Dropdown -->
-        <div class="relative group">
-          <button class="text-gray-700 hover:text-green-600 font-medium transition-colors inline-flex items-center gap-1">
-            Categories
-            <svg class="w-4 h-4 text-gray-500 group-hover:text-green-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all">
-            <div class="py-2">
-                {% for key, label in categories %}
-                <a href="{% url 'main:show_main' %}?category={{ key }}{% if current_filter != 'all' %}&filter={{ current_filter }}{% endif %}"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
-                    {{ label }}
-                </a>
-                {% endfor %}
-            </div>
-          </div>
-        </div>
-
         <a href="{% url 'main:add_product' %}" class="text-gray-700 hover:text-green-600 font-medium transition-colors">
           Add Product
         </a>
@@ -86,22 +66,6 @@
         <a href="{% url 'main:add_product' %}" class="block text-gray-700 hover:text-green-600 font-medium py-2 transition-colors">
           Add Product
         </a>
-
-        <!-- Categories collapsible -->
-        <details class="group">
-          <summary class="cursor-pointer text-gray-700 hover:text-green-600 font-medium py-2">
-            Categories
-          </summary>
-          <div class="pl-4 space-y-1">
-            {% for key, label in categories %}
-                <a href="{% url 'main:show_main' %}?category={{ key }}{% if current_filter != 'all' %}&filter={{ current_filter }}{% endif %}"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-green-600">
-                    {{ label }}
-                </a>
-            {% endfor %}
-          </div>
-        </details>
-      </div>
 
       <!-- Mobile User Section -->
       <div class="border-t border-gray-200 pt-4">

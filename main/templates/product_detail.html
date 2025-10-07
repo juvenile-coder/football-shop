@@ -78,4 +78,122 @@
         </article>
     </div>
 </div>
+
+<script>
+// Configuration
+const PRODUCT_ID = "{{ product.id }}";
+const PRODUCT_DETAIL_ENDPOINT = "{% url 'main:show_json_by_id' 0 %}".replace("0", PRODUCT_ID);
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const productArticle = document.querySelector('article');
+const productName = document.querySelector('h1');
+const productPrice = document.querySelector('.text-sm.text-gray-500 span');
+const productDescription = document.querySelector('.prose .text-gray-700');
+const productBadges = document.querySelector('.flex.flex-wrap.items-center.gap-2.mb-4');
+const productImage = document.querySelector('img');
+const productImageContainer = productImage ? productImage.closest('div.px-6') : null;
+const productSeller = document.querySelector('.font-medium.text-gray-900 p');
+
+// Helper Functions
+function showState(state) {
+    if (!loadingState || !errorState || !productArticle) return;
+
+    if (state === 'loading') {
+        loadingState?.classList.remove('hidden');
+        errorState?.classList.add('hidden');
+        productArticle?.classList.add('hidden');
+    } else if (state === 'error') {
+        loadingState?.classList.add('hidden');
+        errorState?.classList.remove('hidden');
+        productArticle?.classList.add('hidden');
+    } else if (state === 'ready') {
+        loadingState?.classList.add('hidden');
+        errorState?.classList.add('hidden');
+        productArticle?.classList.remove('hidden');
+    }
+}
+
+function getCategoryLabel(categoryCode) {
+    const mapping = {
+        jersey: 'Jersey',
+        shoes: 'Shoes',
+        equipment: 'Equipment',
+        accessories: 'Accessories',
+    };
+    return mapping[categoryCode] || categoryCode;
+}
+
+// Render Product Data
+function renderProduct(product) {
+    // Title & document title
+    productName.textContent = product.name;
+    document.title = `${product.name} - Product Detail`;
+
+    // Category & Featured Badges
+    productBadges.innerHTML = '';
+
+    if (product.category) {
+        const categoryBadge = document.createElement('span');
+        categoryBadge.className =
+            'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-green-600 text-white';
+        categoryBadge.textContent = getCategoryLabel(product.category);
+        productBadges.appendChild(categoryBadge);
+    }
+
+    if (product.is_featured) {
+        const featuredBadge = document.createElement('span');
+        featuredBadge.className =
+            'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800';
+        featuredBadge.textContent = 'Featured';
+        productBadges.appendChild(featuredBadge);
+    }
+
+    // Price
+    const priceFormatted = new Intl.NumberFormat('id-ID').format(product.price);
+    productPrice.innerHTML = `<b>Price:</b> Rp ${priceFormatted}`;
+
+    // Description
+    productDescription.textContent = product.description;
+
+    // Thumbnail
+    if (product.thumbnail && productImage) {
+        productImage.src = product.thumbnail;
+        productImage.alt = product.name;
+        productImageContainer?.classList.remove('hidden');
+    } else {
+        productImageContainer?.classList.add('hidden');
+    }
+
+    // Seller
+    productSeller.textContent = `Listed by: ${product.user_username || 'Anonymous'}`;
+}
+
+// Fetch Product Detail
+async function loadProductDetail() {
+    try {
+        showState('loading');
+
+        const response = await fetch(PRODUCT_DETAIL_ENDPOINT, {
+            headers: { 'Accept': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch product detail');
+        }
+
+        const productData = await response.json();
+        renderProduct(productData);
+        showState('ready');
+    } catch (error) {
+        console.error('Error loading product detail:', error);
+        showState('error');
+    }
+}
+
+// Initialize Page
+document.addEventListener('DOMContentLoaded', loadProductDetail);
+</script>
+
 {% endblock content %}
