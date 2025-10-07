@@ -206,3 +206,27 @@ Ketiga properti CSS ini mengatur spacing elemen dengan cara berbeda:
 - Tambahkan styling dan script tailwind ke berkas base.html pada folder template di direktori utama
 - Tambahkan styling pada global.css sebagai styling default
 - Lakukan styling pada setiap fitur yang diimplementasikan
+
+## Tugas 6
+
+**Perbedaan antara Synchronous dan Asynchronous Request**
+
+**Synchronous request** adalah proses dimana browser mengirimkan request ke server dan harus menunggu hingga mendapatkan response sebelum dapat melanjutkan eksekusi kode lainnya. Dalam model ini, pengguna tidak dapat berinteraksi dengan halaman web selama proses request-response berlangsung, dan biasanya ditandai dengan loading indicator atau halaman yang freeze. Contohnya adalah ketika melakukan form submission tradisional dimana halaman akan sepenuhnya reload setelah data diproses.
+
+**Asynchronous request** memungkinkan browser untuk mengirim request ke server tanpa harus menunggu response sebelum melanjutkan eksekusi kode lainnya. Pengguna tetap dapat berinteraksi dengan halaman web selama proses request berjalan di background. AJAX (Asynchronous JavaScript and XML) adalah implementasi umum dari asynchronous request, dimana hanya bagian tertentu dari halaman yang diperbarui tanpa perlu reload seluruh halaman.
+
+**Alur Kerja AJAX di Django**
+
+AJAX bekerja di Django melalui alur request-response yang terstruktur. Pertama, JavaScript di client-side mengirimkan HTTP request (biasanya menggunakan Fetch API atau XMLHttpRequest) ke endpoint Django yang telah ditentukan. Request ini dapat membawa data dalam format FormData, JSON, atau query parameters. Kemudian, Django menerima request di views yang sesuai, memproses data tersebut (validasi, penyimpanan ke database, dll), dan mengembalikan response dalam format JSON, XML, atau plain text. Di sisi client, JavaScript menerima response tersebut dan memperbarui tampilan halaman secara dinamis tanpa perlu reload, menggunakan DOM manipulation untuk menampilkan data baru atau feedback kepada pengguna.
+
+**Keuntungan Menggunakan AJAX dibanding Render Biasa**
+
+Penggunaan AJAX menawarkan beberapa keuntungan signifikan dibandingkan render tradisional di Django. Dari segi user experience, AJAX memberikan interaktivitas yang lebih baik dengan update konten yang seamless tanpa reload halaman, mengurangi waiting time yang dirasakan pengguna. Performa aplikasi juga meningkat karena hanya data yang diperlukan yang ditransfer, bukan seluruh halaman HTML, sehingga menghemat bandwidth dan waktu loading. Selain itu, AJAX memungkinkan pembuatan single-page application (SPA) yang lebih modern dan responsif, serta memberikan feedback yang lebih immediate kepada pengguna melalui update partial content dan real-time validation.
+
+**Keamanan AJAX untuk Fitur Login dan Register**
+
+Memastikan keamanan saat menggunakan AJAX untuk fitur autentikasi memerlukan beberapa pertimbangan penting. CSRF (Cross-Site Request Forgery) protection harus diimplementasikan dengan menyertakan CSRF token dalam setiap AJAX request, baik melalui header X-CSRFToken atau sebagai data dalam request. Validasi data harus dilakukan secara ketat di server-side meskipun sudah dilakukan di client-side, karena client-side validation dapat dengan mudah di-bypass. Penggunaan HTTPS wajib diterapkan untuk mengenkripsi data sensitif seperti kredensial login selama transmisi. Rate limiting perlu diimplementasikan untuk mencegah brute force attacks, dan session management yang aman harus dijaga dengan pengaturan cookie yang tepat (HttpOnly, Secure flags).
+
+**Pengaruh AJAX terhadap User Experience**
+
+AJAX secara signifikan meningkatkan pengalaman pengguna pada website melalui berbagai aspek. Responsivitas aplikasi meningkat drastis karena aksi pengguna dapat langsung mendapatkan feedback tanpa menunggu reload halaman, menciptakan feeling yang lebih natural dan aplikatif. Interaksi yang lebih dinamis memungkinkan update konten secara real-time, validasi form yang immediate, dan animasi transisi yang smooth. Pengguna dapat melanjutkan pekerjaan mereka tanpa interupsi yang disebabkan oleh page refresh, sehingga flow kerja menjadi tidak terputus. Secara keseluruhan, AJAX menciptakan pengalaman web yang lebih modern, cepat, dan engaging, mendekati pengalaman menggunakan aplikasi desktop native.
