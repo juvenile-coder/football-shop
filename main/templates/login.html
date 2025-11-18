@@ -93,7 +93,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       method: "POST",
       headers: { 
         "X-CSRFToken": csrfToken,
-        "X-Requested-With": "XMLHttpRequest" // 🔥 tambahkan ini
+        "X-Requested-With": "XMLHttpRequest"
       },
       body: formData,
     });

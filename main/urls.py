@@ -20,4 +20,6 @@ urlpatterns = [
     path('product/<int:id>/json/', get_product_json, name='get_product_json'),
     path('product/<int:id>/edit-ajax/', edit_product_ajax, name='edit_product_ajax'),
     path('product/<int:id>/delete-ajax/', delete_product_ajax, name='delete_product_ajax'),
+    path('proxy-image/', proxy_image, name='proxy_image'),
+    path('create-flutter/', create_product_flutter, name='create_product_flutter'),
 ]

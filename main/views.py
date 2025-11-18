@@ -1,5 +1,5 @@
 import datetime
-import json
+import requests
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
@@ -12,6 +12,9 @@ from django.core import serializers
 from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ProductForm
 from main.models import Product
+from django.utils.html import strip_tags
+import json
+from django.http import JsonResponse
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -291,3 +294,100 @@ def delete_product_ajax(request, id):
         product.delete()
         return JsonResponse({'status': 'success', 'message': 'Product deleted successfully'})
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+def proxy_image(request):
+    image_url = request.GET.get('url')
+    if not image_url:
+        return HttpResponse('No URL provided', status=400)
+    
+    try:
+        # Fetch image from external source
+        response = requests.get(image_url, timeout=10)
+        response.raise_for_status()
+        
+        # Return the image with proper content type
+        return HttpResponse(
+            response.content,
+            content_type=response.headers.get('Content-Type', 'image/jpeg')
+        )
+    except requests.RequestException as e:
+        return HttpResponse(f'Error fetching image: {str(e)}', status=500)
+    
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        try:
+            # Check if user is authenticated
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "User not authenticated"
+                }, status=401)
+
+            data = json.loads(request.body)
+            
+            # Validasi required fields
+            name = strip_tags(data.get("name", "").strip())
+            if not name:
+                return JsonResponse({
+                    "status": "error", 
+                    "message": "Product name is required"
+                }, status=400)
+            
+            try:
+                price = int(data.get("price", 0))
+                if price <= 0:
+                    return JsonResponse({
+                        "status": "error",
+                        "message": "Price must be greater than 0"
+                    }, status=400)
+            except (ValueError, TypeError):
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Price must be a valid number"
+                }, status=400)
+            
+            description = strip_tags(data.get("description", "").strip())
+            if not description:
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Description is required"
+                }, status=400)
+            
+            thumbnail = data.get("thumbnail", "").strip()
+            category = data.get("category", "Shoes")
+            is_featured = bool(data.get("is_featured", False))
+
+            # Buat object Product
+            new_product = Product(
+                name=name,
+                price=price,
+                description=description,
+                thumbnail=thumbnail,
+                category=category,
+                is_featured=is_featured,
+                user=request.user
+            )
+            new_product.save()
+
+            return JsonResponse({
+                "status": "success",
+                "message": "Product created successfully",
+                "product_id": new_product.id
+            }, status=201)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({
+                "status": "error",
+                "message": "Invalid JSON format"
+            }, status=400)
+        except Exception as e:
+            return JsonResponse({
+                "status": "error",
+                "message": f"Server error: {str(e)}"
+            }, status=500)
+
+    return JsonResponse({
+        "status": "error",
+        "message": "Method not allowed"
+    }, status=405)
